@@ -1,0 +1,44 @@
+services:
+  manhua-app:
+    build:
+      context: .
+      dockerfile: dockerfiles/php/Dockerfile
+    image: manhua-app
+    container_name: manhua-app
+    tty: true
+    ports:
+      - '9000:9000'
+      - '5173:5173'
+    volumes:
+      - .:/var/www
+    networks:
+      - laravel_app
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www
+      - ./dockerfiles/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - laravel_app
+  postgres:
+    image: postgres:17beta2-bullseye
+    container_name: postgres-app
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - manhua_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=manhua
+    networks:
+      - laravel_app
+networks:
+  laravel_app:
+    driver: bridge
+volumes:
+  manhua_data:
