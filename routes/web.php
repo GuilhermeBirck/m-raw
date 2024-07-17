@@ -11,5 +11,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', function () {
-    return inertia('Index');
+    return Inertia('Index');
 });
+
+Route::get('/login', function () {
+    return Inertia('Login/Login');
+});
+
