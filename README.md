@@ -1,4 +1,4 @@
-
+PHP 8.3.11 - Larevel 11 - Vue 3 - inertiaJS - (Tailwind CSS, Vite.js, Typescript) - [Docker]
 
 ## About Laravel
 
